@@ -1,11 +1,13 @@
 import Navbar from '@/components/Navbar'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { Toaster } from 'react-hot-toast'
-import AuthProvider from '@/components/AuthProvider'
+import { Open_Sans } from 'next/font/google'
+import { ClerkProvider } from '@clerk/nextjs'
+import { cn } from '@/lib/utils'
+import { ThemeProvider } from '@/components/providers/theme-provider'
+   
 
-const inter = Inter({ subsets: ['latin'] })
+const font = Open_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,15 +20,27 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="bg-zinc-500">
-        <AuthProvider>
+      <ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
 
-        <Toaster/>
-        <Navbar/>
+   
+        
+
+      
+      <body className={cn(
+          font.className,
+          "bg-white dark:bg-[#313338]"
+        )}>
+          <ThemeProvider defaultTheme='light' attribute='class' forcedTheme='light' storageKey='clone'  enableSystem={false} >
+
+
+
+       
         {children}
-        </AuthProvider>
+          </ThemeProvider>
+         
         </body>
     </html>
+      </ClerkProvider>
   )
 }
