@@ -1,8 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images:{
-        domains:["fakestoreapi.com", "upload.wikimedia.org","uhdtv.io"]
+    webpack: (config) => {
+      config.externals.push({
+        "utf-8-validate": "commonjs utf-8-validate",
+        bufferutil: "commonjs bufferutil"
+      });
+  
+      return config;
+    },
+    images: {
+      domains: [
+        "uploadthing.com","img.clerk.com",
+        "utfs.io"
+      ]
     }
-}
-
-module.exports = nextConfig
+  }
